@@ -102,13 +102,9 @@ public class ColorSlider extends JFrame implements ChangeListener{
 		blueLabel.setText(Integer.toString(blue.getValue()));
 	}
 	
-	
 	public static void main(String[] args) {
 	// instantiate a colorSlider object to play around with
 		ColorSlider colorSlider = new ColorSlider("Color Selector");
 		colorSlider.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	}
-
-
-
 }
