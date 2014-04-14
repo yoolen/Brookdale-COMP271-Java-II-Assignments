@@ -1,13 +1,5 @@
 package applets;
 
-import java.awt.*;
-import java.awt.event.*;
-
-import javax.swing.*;
-import javax.swing.border.TitledBorder;
-
-import accounting.Loan;
-
 /* Terry Chern
  * Comp 271-001RL
  * 14 April 2014
@@ -16,6 +8,13 @@ import accounting.Loan;
  * to be an applet for computing loan payment.
  */
 
+import java.awt.*;
+import java.awt.event.*;
+
+import javax.swing.*;
+import javax.swing.border.TitledBorder;
+
+import accounting.Loan;
 	
 public class LoanCalculator extends JFrame {
 // Create text fields for interest rate, years,
