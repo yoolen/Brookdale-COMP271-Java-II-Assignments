@@ -16,7 +16,7 @@ import javax.swing.border.TitledBorder;
 
 import accounting.Loan;
 	
-public class LoanCalculator extends JFrame {
+public class LoanCalculator extends JApplet {
 // Create text fields for interest rate, years,
 // loan amount, monthly payment, and total payment
 	private JTextField jtfAnnualInterestRate = new JTextField();
@@ -73,13 +73,9 @@ public class LoanCalculator extends JFrame {
 		}
 	}
 	
-	public static void main(String[] args) {
-		LoanCalculator frame = new LoanCalculator();
-		frame.pack();
-		frame.setTitle("LoanCalculator");
-		frame.setLocationRelativeTo(null); // Center the frame
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setVisible(true);
+	public void init() {
+		//LoanCalculator frame = new LoanCalculator();  
+		// Is instantiation necessary? Can I replace the constructor with the init?
 	}
 }
 	
