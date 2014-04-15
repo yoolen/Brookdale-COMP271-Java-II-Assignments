@@ -114,7 +114,11 @@ class StillClock extends JPanel {
 }
 
 
-public class ClockAnimation extends JFrame{
+public class ClockAnimation extends JApplet{ 
+	// Extend JApplet on the class that generates the frame that
+	// shows the clock. The StillClock() class should remain unchanged
+	// as it is only generating an image of the clock which is
+	// redrawn to give the illusion of animation.
 	private StillClock clock = new StillClock();
 	
 	public ClockAnimation(){
@@ -133,6 +137,7 @@ public class ClockAnimation extends JFrame{
 		}
 	}
 	
+	/*	// This never gets executed by the browser.
 	public static void main(String[] args) {
 		JFrame frame = new ClockAnimation();
 		frame.setTitle("ClockAnimation");
@@ -140,5 +145,5 @@ public class ClockAnimation extends JFrame{
 		frame.setLocationRelativeTo(null); // Center the frame
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setVisible(true);
-	}
+	} */
 }
