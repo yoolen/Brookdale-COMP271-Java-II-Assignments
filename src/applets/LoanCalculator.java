@@ -16,7 +16,7 @@ import javax.swing.border.TitledBorder;
 
 import accounting.Loan;
 	
-public class LoanCalculator extends JApplet {
+public class LoanCalculator extends JApplet { // swap JFrame for JApplet
 // Create text fields for interest rate, years,
 // loan amount, monthly payment, and total payment
 	private JTextField jtfAnnualInterestRate = new JTextField();
@@ -73,9 +73,23 @@ public class LoanCalculator extends JApplet {
 		}
 	}
 	
+	
 	public void init() {
-		//LoanCalculator frame = new LoanCalculator();  
-		// Is instantiation necessary? Can I replace the constructor with the init?
+		// The browser instantiates the class upon creation,
+		// is the init method strictly necessary? or will it
+		// automatically be called by the superclass on instantiation?
+		// Can I just leave the init() method out?
 	}
+	
+	/*	// main method is never executed by the browser
+	public static void main(String[] args){
+		LoanCalculator fram = new LoanCalculator();
+		frame.pack();
+		frame.setTitle("LoanCalculator");
+		frame.setLocatoinRelativeTo(null); // center the frame
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);
+	} */
+	
 }
 	
