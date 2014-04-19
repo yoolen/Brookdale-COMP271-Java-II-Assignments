@@ -15,11 +15,11 @@ public class Flag extends JApplet {
   public static class FlagAnthemPanel extends JPanel implements ActionListener {
     private Image image;
     private Timer timer = new Timer(10, this);
-    int x = 50;
-    int y = 50;
+    private int x = 50;
+    private int y = 50;
     int width = 300;
     int height = 300;
-    int change = 1;
+    int change = 2;
 
     public FlagAnthemPanel(Image image) {
       this.image = image;
@@ -43,6 +43,8 @@ public class Flag extends JApplet {
       	
       	width += change;
       	height += change;
+      	x-= change/2;
+      	y-= change/2;
 
       g.drawImage(image, x, y, width, height, this);
     }
