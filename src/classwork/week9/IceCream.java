@@ -30,9 +30,9 @@ public class IceCream extends JApplet implements ActionListener, ItemListener{ /
 		URL urlForImage = getClass().getResource("icecream.jpg"); // These files go into the bin folder
 		add(new JLabel(new ImageIcon(urlForImage)));
 
-		URL urlForAudio = getClass().getResource("scream.aiff");
-		AudioClip audioClip = Applet.newAudioClip(urlForAudio);
-		audioClip.play();
+		//URL urlForAudio = getClass().getResource("scream.aiff");
+		//AudioClip audioClip = Applet.newAudioClip(urlForAudio);
+		//audioClip.play();
 
 		// Do the flavors as radio buttons since we can pick only one
 		vanilla = new JRadioButton("Vanilla", true);
