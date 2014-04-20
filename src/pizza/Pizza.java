@@ -9,7 +9,7 @@ abstract public class Pizza {
 	protected double cost;
 	public static final double delivery_charge = 5;
 	
-	public Pizza(String sz) {
+	protected Pizza(String sz) { // only allow sub-classes to instantiate
 		size = sz;
 		time_order = new Date();
 		toppings = "";
@@ -28,6 +28,10 @@ abstract public class Pizza {
 	
 	public String getSize(){
 		return this.size;
+	}
+	
+	public Double getCost(){
+		return cost;
 	}
 	
 	public abstract void addTopping(String topping);  //subclass must implement this method
@@ -50,9 +54,10 @@ class SmallPizza extends Pizza {
 	@Override
 	public void removeTopping(String topping) {
 	// Remove a topping and decrements price accordingly
-		toppings = toppings.replace(topping,""); // remove the topping
-		cost -= .25;
-		
+		toppings = toppings.replace(topping + " ",""); // remove the topping
+		if(cost > 8){ // use this to block ItemStateListener from reducing price below base price
+			cost -= .25;
+		}
 	}
 }
 
@@ -73,7 +78,9 @@ class MediumPizza extends Pizza {
 	public void removeTopping(String topping) {
 	// Remove a topping and decrements price accordingly
 		toppings = toppings.replace(topping,""); // remove the topping
-		cost -= .50;	
+		if(cost > 10){ // use this to block ItemStateListener from reducing price below base price
+			cost -= .50;
+		}
 	}
 }
 
@@ -94,7 +101,9 @@ class LargePizza extends Pizza {
 	public void removeTopping(String topping) {
 	// Remove a topping and decrements price accordingly
 		toppings = toppings.replace(topping,""); // remove the topping
-		cost -= .75;
+		if(cost > 12){ // use this to block ItemStateListener from reducing price below base price
+			cost -= .75;
+		}
 	}
 }
 
@@ -114,7 +123,9 @@ class XLargePizza extends Pizza {
 	public void removeTopping(String topping) {
 	// Remove a topping and decrements price accordingly
 		toppings = toppings.replace(topping,""); // remove the topping
-		cost -= 1;
+		if(cost > 14){  // use this to block ItemStateListener from reducing price below base price
+			cost -= 1;
+		}
 	}
 
 }
