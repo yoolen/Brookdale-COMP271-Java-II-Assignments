@@ -3,7 +3,7 @@ package pizza;
 import java.util.Date;
 
 abstract public class Pizza {
-	private String size;
+	protected String size;
 	protected String toppings;
 	private Date time_order;
 	protected double cost;
@@ -27,21 +27,26 @@ abstract public class Pizza {
 		}
 		return result;
 	}
+	
+	public String getSize(){
+		return this.size;
+	}
 }
 
-class Small_Pizza extends Pizza {
-	public Small_Pizza(){
+class SmallPizza extends Pizza {
+	public SmallPizza(){
 		super("Small");
 		super.cost = 8;
 	}
+	
 	public void add_topping(String topping){
 		super.toppings += topping + " ";
 		cost += .25;
 	}
 }
 
-class Medium_Pizza extends Pizza {
-	public Medium_Pizza(){
+class MediumPizza extends Pizza {
+	public MediumPizza(){
 		super("Medium");
 		super.cost = 10;
 	}
@@ -51,13 +56,24 @@ class Medium_Pizza extends Pizza {
 	}
 }
 
-class Large_Pizza extends Pizza {
-	public Large_Pizza(){
+class LargePizza extends Pizza {
+	public LargePizza(){
 		super("Large");
 		super.cost = 12;
 	}
 	public void add_topping(String topping){
 		super.toppings += topping + " ";
 		cost += .75;
+	}
+}
+
+class XLargePizza extends Pizza {
+	public XLargePizza(){
+		super("X-Large");
+		super.cost = 14;
+	}
+	public void add_topping(String topping){
+		super.toppings += topping + " ";
+		cost += 1;
 	}
 }
