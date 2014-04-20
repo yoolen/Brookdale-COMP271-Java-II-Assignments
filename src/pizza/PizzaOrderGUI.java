@@ -5,11 +5,13 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.*;
 
 public class PizzaOrderGUI extends JFrame{
 	private Pizza myPizza;
+	private JPanel toppingsPanel;
 	
 	public PizzaOrderGUI(){
 		setTitle("Terry's Pizza Ordering System");
@@ -29,16 +31,16 @@ public class PizzaOrderGUI extends JFrame{
 		JPanel sizePanel = new SizePanel();
 		
 		// Toppings Panel
-		JPanel toppingsPanel = new ToppingsPanel();
+		toppingsPanel = new ToppingsPanel();
 				
 		add(customerPanel);
 		add(sizePanel);
 		add(toppingsPanel);
 		
 	    setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setSize(580,600);
+	    setSize(580,600); // Need to set the size before centering
 	    setLocationRelativeTo(null); // Center the frame
-		setResizable(false);
+		setResizable(false); // prevent the user from resizing the window
 		setVisible(true);
 
 	}
@@ -52,6 +54,22 @@ public class PizzaOrderGUI extends JFrame{
 		private JRadioButton rdbtnXLarge = new JRadioButton("X-Large");
 			
 		public SizePanel(){
+			rdbtnSmall = new JRadioButton("Small");
+			rdbtnSmall.setMnemonic(KeyEvent.VK_S);
+			rdbtnSmall.addActionListener(this);
+			
+			rdbtnMedium = new JRadioButton("Medium");
+			rdbtnMedium.setMnemonic(KeyEvent.VK_M);
+			rdbtnMedium.addActionListener(this);
+			
+			rdbtnLarge = new JRadioButton("Large");
+			rdbtnLarge.setMnemonic(KeyEvent.VK_L);
+			rdbtnLarge.addActionListener(this);
+			
+			rdbtnXLarge = new JRadioButton("X-Large");
+			rdbtnXLarge.setMnemonic(KeyEvent.VK_X);
+			rdbtnXLarge.addActionListener(this);
+			
 			setBorder(BorderFactory.createTitledBorder("Size"));
 			ButtonGroup group = new ButtonGroup();
 			group.add(rdbtnSmall);
@@ -67,8 +85,25 @@ public class PizzaOrderGUI extends JFrame{
 		@Override
 		public void actionPerformed(ActionEvent ae){
 		// Case statement used to instantiate a Pizza of the correct size.
+		switch(ae.getActionCommand()){
+			case "Small":
+				myPizza = new SmallPizza();
+				break;
+			case "Medium":
+				myPizza = new MediumPizza();
+				break;
+			case "Large":
+				myPizza = new LargePizza();
+				break;
+			case "XLarge":
+				myPizza = new XLargePizza();
+				break;
+			default:
 		}
+		((ToppingsPanel)toppingsPanel).reset();
+		// Changing pizza sizes resets all selections.
 	}
+}
 	
 	private class ToppingsPanel extends JPanel implements ItemListener{
 		private JCheckBox anchovies = new JCheckBox("Anchovies");
@@ -119,16 +154,33 @@ public class PizzaOrderGUI extends JFrame{
 			add(meat);
 			add(veg);
 		}
+		
+		public void reset(){
+			anchovies.setSelected(false);
+			bacon.setSelected(false);
+			ham.setSelected(false);
+			pepperoni.setSelected(false);
+			sausage.setSelected(false);
+			bellPeppers.setSelected(false);
+			onions.setSelected(false);
+			eggplant.setSelected(false);
+			garlic.setSelected(false);
+			mushrooms.setSelected(false);
+			olives.setSelected(false);
+			pineapple.setSelected(false);
+			xCheese.setSelected(false);
+		}
 
 		@Override
 		public void itemStateChanged(ItemEvent arg0) {
-			// TODO Auto-generated method stub
+			
 			
 		}
 		
 	}
 	
 	private double calculatePrice(){
+	// Uses Pizza's getPrice method and checks if user wants delivery
 		double price = 0;
 		return price;
 	}
