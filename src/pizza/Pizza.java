@@ -9,8 +9,6 @@ abstract public class Pizza {
 	protected double cost;
 	public static final double delivery_charge = 5;
 	
-	abstract public void add_topping(String topping); //subclass must implement this method
-	
 	public Pizza(String sz) {
 		size = sz;
 		time_order = new Date();
@@ -23,7 +21,7 @@ abstract public class Pizza {
 			result = String.format("At %s a %s pizza was ordered. The total is $%.2f", time_order, this.size, this.cost);
 		}
 		else{
-			result = String.format("At %s a %s pizza with these toppings %s was ordered. The total is $%.2f", time_order, this.size, this.toppings, this.cost);	
+			result = String.format("At %s a %s pizza was ordered with: %s . The total is $%.2f", time_order, this.size, this.toppings, this.cost);	
 		}
 		return result;
 	}
@@ -31,6 +29,9 @@ abstract public class Pizza {
 	public String getSize(){
 		return this.size;
 	}
+	
+	public abstract void addTopping(String topping);  //subclass must implement this method
+	public abstract void removeTopping(String topping);  //subclass must implement this method
 }
 
 class SmallPizza extends Pizza {
@@ -39,9 +40,19 @@ class SmallPizza extends Pizza {
 		super.cost = 8;
 	}
 	
-	public void add_topping(String topping){
+	@Override
+	public void addTopping(String topping){
+	// Adds a topping and increments price accordingly
 		super.toppings += topping + " ";
 		cost += .25;
+	}
+
+	@Override
+	public void removeTopping(String topping) {
+	// Remove a topping and decrements price accordingly
+		toppings = toppings.replace(topping,""); // remove the topping
+		cost -= .25;
+		
 	}
 }
 
@@ -50,9 +61,19 @@ class MediumPizza extends Pizza {
 		super("Medium");
 		super.cost = 10;
 	}
-	public void add_topping(String topping){
+
+	@Override
+	public void addTopping(String topping) {
+	// Adds a topping and increments price accordingly
 		super.toppings += topping + " ";
 		cost += .50;
+		
+	}
+	@Override
+	public void removeTopping(String topping) {
+	// Remove a topping and decrements price accordingly
+		toppings = toppings.replace(topping,""); // remove the topping
+		cost -= .50;	
 	}
 }
 
@@ -61,9 +82,19 @@ class LargePizza extends Pizza {
 		super("Large");
 		super.cost = 12;
 	}
-	public void add_topping(String topping){
+
+	@Override
+	public void addTopping(String topping) {
+	// Adds a topping and increments price accordingly
 		super.toppings += topping + " ";
-		cost += .75;
+		cost += .75;		
+	}
+	
+	@Override
+	public void removeTopping(String topping) {
+	// Remove a topping and decrements price accordingly
+		toppings = toppings.replace(topping,""); // remove the topping
+		cost -= .75;
 	}
 }
 
@@ -72,8 +103,18 @@ class XLargePizza extends Pizza {
 		super("X-Large");
 		super.cost = 14;
 	}
-	public void add_topping(String topping){
+	
+	@Override
+	public void addTopping(String topping) {
+	// Adds a topping and increments price accordingly
 		super.toppings += topping + " ";
-		cost += 1;
+		cost += 1;		
 	}
+	@Override
+	public void removeTopping(String topping) {
+	// Remove a topping and decrements price accordingly
+		toppings = toppings.replace(topping,""); // remove the topping
+		cost -= 1;
+	}
+
 }
