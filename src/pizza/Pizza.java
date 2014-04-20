@@ -7,7 +7,7 @@ abstract public class Pizza {
 	protected String toppings;
 	private Date time_order;
 	protected double cost;
-	public static final double delivery_charge = 5;
+	public static final double DELIVERY_CHARGE = 5;
 	
 	protected Pizza(String sz) { // only allow sub-classes to instantiate
 		size = sz;
