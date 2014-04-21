@@ -21,8 +21,8 @@ public class PizzaOrderGUI extends JFrame{
 	private JPanel toppingsPanel;
 	protected JPanel detailsPanel;
 	
-	public PizzaOrderGUI(){
-		setTitle("Terry's Pizza Ordering System");
+	public PizzaOrderGUI(String title){
+		super(title);
 		setLayout(new FlowLayout());
 				
 		// Title Panel
@@ -579,6 +579,8 @@ public class PizzaOrderGUI extends JFrame{
 	}
 	
 	public static void main(String[] args){
-		PizzaOrderGUI pizzaOrder = new PizzaOrderGUI();
+		PizzaOrderGUI pizzaOrder = new PizzaOrderGUI("Terry's Pizza Ordering System");
+		pizzaOrder.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		pizzaOrder.setVisible(true);
 	}
 }
