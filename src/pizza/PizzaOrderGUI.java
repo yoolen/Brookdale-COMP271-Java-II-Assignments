@@ -17,6 +17,7 @@ import javax.swing.event.DocumentListener;
 @SuppressWarnings("serial")
 public class PizzaOrderGUI extends JFrame{
 	private Pizza myPizza;
+	private CustomerInfo customerInfo;
 	private JPanel toppingsPanel;
 	protected JPanel detailsPanel;
 	
@@ -38,7 +39,7 @@ public class PizzaOrderGUI extends JFrame{
 		java.net.URL url = this.getClass().getResource("pizza.png");
 		Image image = new ImageIcon(url).getImage();
 		customerPanel.add(new JLabel(new ImageIcon(image)));
-		CustomerInfo customerInfo = new CustomerInfo();
+		customerInfo = new CustomerInfo();
 		customerPanel.add(customerInfo);
 		customerPanel.setBorder(BorderFactory.createEmptyBorder());
 		
@@ -71,6 +72,8 @@ public class PizzaOrderGUI extends JFrame{
 		private JTextField textField_3;
 		private JTextField textField_4;
 		private JTextField textField_5;
+		private JRadioButton rdbtnDelivery;
+		private JRadioButton rdbtnPickup;
 
 		// This Panel generated using WindowBuilder
 		public CustomerInfo() {
@@ -107,11 +110,11 @@ public class PizzaOrderGUI extends JFrame{
 			textField_5 = new JTextField();
 			textField_5.setColumns(10);
 			
-			JRadioButton rdbtnDelivery = new JRadioButton("Delivery");
+			rdbtnDelivery = new JRadioButton("Delivery");
 			rdbtnDelivery.addActionListener(this);		
 			group.add(rdbtnDelivery);
 			
-			JRadioButton rdbtnPickup = new JRadioButton("Pickup");
+			rdbtnPickup = new JRadioButton("Pickup");
 			rdbtnPickup.addActionListener(this);
 			group.add(rdbtnPickup);
 			rdbtnPickup.setSelected(true);
@@ -539,8 +542,36 @@ public class PizzaOrderGUI extends JFrame{
 	class SummaryFrame extends JFrame{
 		public SummaryFrame(){
 			super("Order Summary");
-			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-			setSize(100,100); // Need to set the size before centering
+			setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+			setSize(300,250); // Need to set the size before centering
+			
+			// Get all the info and then print it out in a new window
+			StringBuilder info = new StringBuilder();
+			info.append("Name: ");
+			info.append(customerInfo.textField.getText());
+			info.append("\nAddress:\n");
+			info.append(customerInfo.textField_1.getText());
+			info.append("\n");
+			info.append(customerInfo.textField_2.getText());
+			info.append(", ");
+			info.append(customerInfo.textField_3.getText());
+			info.append(" ");
+			info.append(customerInfo.textField_4.getText());
+			info.append("\nPhone Number: ");
+			info.append(customerInfo.textField_5.getText());
+			info.append("\nPizza Size: ");
+			info.append(myPizza.getSize());
+			info.append("\nToppings: ");
+			info.append(myPizza.getToppings());
+			info.append("\nDelivery: ");
+			info.append(customerInfo.rdbtnDelivery.isSelected()?"Yes":"No");
+			info.append("\nTotal Cost: $");
+			info.append(((DetailsPanel)detailsPanel).price.getText());
+			info.append("\nYour order will be ready in 20 minutes!\n Thanks for ordering from Terry's Pizzaria!");
+			
+			JTextArea summary = new JTextArea();
+			summary.setText(info.toString());
+			add(summary);
 			setLocationRelativeTo(null); // Center the frame
 			setResizable(false); // prevent the user from resizing the window
 			setVisible(true);

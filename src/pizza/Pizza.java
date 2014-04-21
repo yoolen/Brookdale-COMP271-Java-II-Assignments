@@ -34,6 +34,10 @@ abstract public class Pizza {
 		return cost;
 	}
 	
+	public String getToppings(){
+		return toppings;
+	}
+	
 	public abstract void addTopping(String topping);  //subclass must implement this method
 	public abstract void removeTopping(String topping);  //subclass must implement this method
 }
