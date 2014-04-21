@@ -32,8 +32,6 @@ public class PizzaOrderGUI extends JFrame{
 		
 		// Details Panel
 		detailsPanel = new DetailsPanel();
-		JButton submit = new JButton("Submit Order");
-		detailsPanel.add(submit);
 		
 		// Customer Panel
 		JPanel customerPanel = new JPanel();
@@ -60,7 +58,7 @@ public class PizzaOrderGUI extends JFrame{
 		add(detailsPanel);
 		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	    setSize(580,650); // Need to set the size before centering
+	    setSize(580,680); // Need to set the size before centering
 	    setLocationRelativeTo(null); // Center the frame
 		setResizable(false); // prevent the user from resizing the window
 		setVisible(true);
@@ -403,20 +401,21 @@ public class PizzaOrderGUI extends JFrame{
 		}
 	}
 	
-	private class DetailsPanel extends JPanel implements DocumentListener{
+	private class DetailsPanel extends JPanel implements DocumentListener, ActionListener{// implements DocumentListener{
 	// Uses DocumentListener to check for when the cost of the pie is updated
-	// by changing size, choosing delivery, or adding toppings.
+	// by changing size, choosing delivery, or adding toppings. This panel formatted
+	// using WindowBuilder
 		JTextField price;
 		JTextField delivery;
 		JTextField total;
-		
-		public DetailsPanel(){
-			setLayout(new GridLayout(0,5));
+
+		public DetailsPanel(){	
 			setBorder(BorderFactory.createTitledBorder("Summary"));
-			// instantiate text fields
-			price = new JTextField(5);
-			delivery = new JTextField(5);
-			total = new JTextField(5);
+		
+			// Instantiate JTextFields
+			price = new JTextField(10);
+			delivery = new JTextField(10);
+			total = new JTextField(10);
 			
 			// set defaults
 			price.setText(String.format("%.2f", myPizza.getCost())); // default to large pizza
@@ -427,18 +426,97 @@ public class PizzaOrderGUI extends JFrame{
 			delivery.getDocument().addDocumentListener(this);
 			price.getDocument().addDocumentListener(this);
 		
-			// place fields
-			add(new JLabel("Price"));
-			add(new JLabel());
-			add(new JLabel("Delivery"));
-			add(new JLabel());
-			add(new JLabel("Total"));
+			GridBagLayout gridBagLayout = new GridBagLayout();
+			gridBagLayout.columnWidths = new int[]{14, 86, 8, 86, 8, 86, 0, 0};
+			gridBagLayout.rowHeights = new int[]{14, 20, 0, 23, 0, 0};
+			gridBagLayout.columnWeights = new double[]{0.0, 1.0, 0.0, 1.0, 0.0, 1.0, 0.0, Double.MIN_VALUE};
+			gridBagLayout.rowWeights = new double[]{0.0, 0.0, 0.0, 0.0, 0.0, Double.MIN_VALUE};
+			setLayout(gridBagLayout);
 			
-			add(price);
-			add(new JLabel(" + "));
-			add(delivery);
-			add(new JLabel(" = "));
-			add(total);
+			JLabel lblPrice = new JLabel("Price");
+			GridBagConstraints gbc_lblPrice = new GridBagConstraints();
+			gbc_lblPrice.anchor = GridBagConstraints.NORTH;
+			gbc_lblPrice.insets = new Insets(0, 0, 5, 5);
+			gbc_lblPrice.gridx = 1;
+			gbc_lblPrice.gridy = 0;
+			add(lblPrice, gbc_lblPrice);
+			
+			JLabel lblDeliveryFee = new JLabel("Delivery Fee");
+			GridBagConstraints gbc_lblDeliveryFee = new GridBagConstraints();
+			gbc_lblDeliveryFee.anchor = GridBagConstraints.NORTH;
+			gbc_lblDeliveryFee.insets = new Insets(0, 0, 5, 5);
+			gbc_lblDeliveryFee.gridx = 3;
+			gbc_lblDeliveryFee.gridy = 0;
+			add(lblDeliveryFee, gbc_lblDeliveryFee);
+			
+			JLabel lblTotal = new JLabel("Total");
+			GridBagConstraints gbc_lblTotal = new GridBagConstraints();
+			gbc_lblTotal.anchor = GridBagConstraints.NORTH;
+			gbc_lblTotal.insets = new Insets(0, 0, 5, 5);
+			gbc_lblTotal.gridx = 5;
+			gbc_lblTotal.gridy = 0;
+			add(lblTotal, gbc_lblTotal);
+			
+			GridBagConstraints gbc_price = new GridBagConstraints();
+			gbc_price.insets = new Insets(0, 0, 5, 5);
+			gbc_price.fill = GridBagConstraints.HORIZONTAL;
+			gbc_price.gridx = 1;
+			gbc_price.gridy = 1;
+			add(price, gbc_price);
+							
+			JLabel label = new JLabel("+");
+			GridBagConstraints gbc_label = new GridBagConstraints();
+			gbc_label.anchor = GridBagConstraints.EAST;
+			gbc_label.insets = new Insets(0, 0, 5, 5);
+			gbc_label.gridx = 2;
+			gbc_label.gridy = 1;
+			add(label, gbc_label);
+				
+			GridBagConstraints gbc_delivery = new GridBagConstraints();
+			gbc_delivery.insets = new Insets(0, 0, 5, 5);
+			gbc_delivery.fill = GridBagConstraints.HORIZONTAL;
+			gbc_delivery.gridx = 3;
+			gbc_delivery.gridy = 1;
+			add(delivery, gbc_delivery);
+						
+			JLabel label_1 = new JLabel("=");
+			GridBagConstraints gbc_label_1 = new GridBagConstraints();
+			gbc_label_1.anchor = GridBagConstraints.EAST;
+			gbc_label_1.insets = new Insets(0, 0, 5, 5);
+			gbc_label_1.gridx = 4;
+			gbc_label_1.gridy = 1;
+			add(label_1, gbc_label_1);
+				
+			GridBagConstraints gbc_total = new GridBagConstraints();
+			gbc_total.insets = new Insets(0, 0, 5, 5);
+			gbc_total.fill = GridBagConstraints.HORIZONTAL;
+			gbc_total.gridx = 5;
+			gbc_total.gridy = 1;
+			add(total, gbc_total);
+							
+			Component horizontalStrut_1 = Box.createHorizontalStrut(20);
+			GridBagConstraints gbc_horizontalStrut_1 = new GridBagConstraints();
+			gbc_horizontalStrut_1.insets = new Insets(0, 0, 5, 5);
+			gbc_horizontalStrut_1.gridx = 6;
+			gbc_horizontalStrut_1.gridy = 2;
+			add(horizontalStrut_1, gbc_horizontalStrut_1);
+				
+			Component horizontalStrut = Box.createHorizontalStrut(20);
+			GridBagConstraints gbc_horizontalStrut = new GridBagConstraints();
+			gbc_horizontalStrut.insets = new Insets(0, 0, 5, 5);
+			gbc_horizontalStrut.gridx = 0;
+			gbc_horizontalStrut.gridy = 3;
+			add(horizontalStrut, gbc_horizontalStrut);
+				
+			JButton btnSubmitOrder = new JButton("Submit Order");
+			btnSubmitOrder.addActionListener(this);
+			GridBagConstraints gbc_btnSubmitOrder = new GridBagConstraints();
+			gbc_btnSubmitOrder.gridwidth = 2;
+			gbc_btnSubmitOrder.anchor = GridBagConstraints.NORTHEAST;
+			gbc_btnSubmitOrder.gridx = 4;
+			gbc_btnSubmitOrder.gridy = 4;
+			add(btnSubmitOrder, gbc_btnSubmitOrder);
+
 		}
 
 		// DocumentListener methods (only need insertUpdate)
@@ -449,7 +527,24 @@ public class PizzaOrderGUI extends JFrame{
 		@Override
 		public void changedUpdate(DocumentEvent de) {};
 		@Override
-		public void removeUpdate(DocumentEvent de) {};
+		public void removeUpdate(DocumentEvent de) {}
+		
+		// ActionListener for the submit button
+		@Override
+		public void actionPerformed(ActionEvent arg0) {
+			JFrame summary = new SummaryFrame();	
+		}
+	}
+	
+	class SummaryFrame extends JFrame{
+		public SummaryFrame(){
+			super("Order Summary");
+			setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+			setSize(100,100); // Need to set the size before centering
+			setLocationRelativeTo(null); // Center the frame
+			setResizable(false); // prevent the user from resizing the window
+			setVisible(true);
+		}
 	}
 	
 	public static void main(String[] args){
